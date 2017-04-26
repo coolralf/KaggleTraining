@@ -1,8 +1,5 @@
 import pandas as pd
 import numpy as np
-from pandas import Series, DataFrame
-import os
+from pandas import Series,DataFrame
 
-path = os.getcwd()
-data_train = pd.read_csv('./train.csv')
-data_train
+data_train = pd.read_csv("Titanic/train.csv")
