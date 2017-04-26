@@ -6,7 +6,6 @@ from pandas import Series,DataFrame
 
 path = os.getcwd()
 data_train = pd.read_csv(r"Titanic/train.csv")
-print(data_train)
 #data_info...
 
 from sklearn.ensemble import RandomForestRegressor
@@ -69,9 +68,12 @@ X = train_np[:,1:]
 clf = linear_model.LogisticRegression(C=1.0,penalty='l2',tol=1e-4)
 clf.fit(X,y)
 
+# model save
+from sklearn.externals import joblib
+joblib.dump(clf,"Titanic/clf.model")
 #processing test_data
 
-data_test= pd.read_csv("test.csv")
+data_test= pd.read_csv(r"Titanic/test.csv")
 data_test.loc[(data_test.Fare.isnull()),'Fare']= 0
 
 tmp_df = data_test[['Age','Fare','Parch','SibSp','Pclass']]
@@ -95,5 +97,5 @@ df_test['Fare_scaled']= scaler.fit_transform(df_test['Fare'],fare_scale_param)
 test = df_test.filter(regex='Survived|Age_.*|SibSp|Parch|Fare_.*|Cabin_.*|Embarked_.*|Sex_.*|Pclass_.*|')
 predictions = clf.predict(test)
 
-result = pd.DataFrame({'PassengerId':data_test['PassengerId'].as_matrix(),'Survied':predictions.astype(np.int32)})
-result.to_csv('result.csv')
+result = pd.DataFrame({'PassengerId':data_test['PassengerId'].as_matrix(),'Survived':predictions.astype(np.int32)})
+result.to_csv("Titanic/result.csv",index=False)
