@@ -58,7 +58,7 @@ df['Fare_scaled']= scaler.fit_transform(df['Fare'],fare_scale_param)
 
 from sklearn import linear_model
 
-train_df = df.filter(regex='Survived|Age_.*|SibSp|Parch|Fare_.*|Cabin_.*|Embarked_.*|Sex_.*|Pclass_.*|')
+train_df = df.filter(regex='Survived|Age_.*|SibSp|Parch|Fare_.*|Cabin_.*|Embarked_.*|Sex_.*|Pclass_.*')
 train_np = train_df.as_matrix()
 
 y = train_np[:,0]
@@ -94,7 +94,7 @@ df_test.drop(['Cabin','Pclass','Sex','Name','Ticket','Embarked'],axis = 1,inplac
 df_test['Age_scaled'] = scaler.fit_transform(df_test['Age'],age_scale_param)
 df_test['Fare_scaled']= scaler.fit_transform(df_test['Fare'],fare_scale_param)
 
-test = df_test.filter(regex='Survived|Age_.*|SibSp|Parch|Fare_.*|Cabin_.*|Embarked_.*|Sex_.*|Pclass_.*|')
+test = df_test.filter(regex='Survived|Age_.*|SibSp|Parch|Fare_.*|Cabin_.*|Embarked_.*|Sex_.*|Pclass_.*')
 predictions = clf.predict(test)
 
 result = pd.DataFrame({'PassengerId':data_test['PassengerId'].as_matrix(),'Survived':predictions.astype(np.int32)})
